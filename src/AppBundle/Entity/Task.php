@@ -54,7 +54,6 @@ Class Task{
 	}
 
 	public function setTaskPriority($taskPriority){
-
 		return $this->taskPriority = $taskPriority;
 	}
 	public function setTaskComment($taskComment){
@@ -62,7 +61,7 @@ Class Task{
 	}
 	public function setStatus($taskStatus){
 
-		return $this->task = $taskStatus;
+		return $this->taskStatus = $taskStatus;
 	}
 }
 ?>

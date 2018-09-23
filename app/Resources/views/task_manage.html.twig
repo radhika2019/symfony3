@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+	{{ parent() }}
+	<div class="container">
+		<div class="row">
+		<div class="col-md-12">
+		<a href="{{ path('add_task') }}" class="btn btn-info pull-right">Create Task</a>
+		</div>
+			<div class="col-md-12">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Task</th>
+							<th>Task Priority</th>
+							<th>Task Status</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for value in TaskArr %}
+						<tr>
+							<td>{{ value.task }}</td>
+							<td>{{ value.taskPriority }}</td>
+							<td>{{ value.taskStatus }}</td>
+							<td>
+								<a href="{{ path('edit_task', {'task_id': value.id}) }}">Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;
+								<a href="javascript:void(0);" onClick ="del_record({{ value.id}})">Delete</a>
+							</td>
+						</tr>
+						{% else %}
+							<tr>
+								<td colspan="4">No Record Found</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+ 	<script type="text/javascript">
+		function del_record($del_id){
+			var del_id = $del_id;
+			$.ajax({
+				url:"{{ path('delete_task') }}",
+				data:{del_id:del_id},
+				type:"POST",
+				success:function(response){
+					var resp = response;
+					alert(resp);
+					location.reload();
+				}
+			});
+		}
+	</script>
+{% endblock %}
